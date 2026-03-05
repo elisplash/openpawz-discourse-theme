@@ -105,21 +105,22 @@
 // ══════════════════════════════════════════════════════════
 
 .pawz-hero {
-  padding: 6rem 2rem 5rem;
-  min-height: 420px;
+  padding: 7rem 2rem 6rem;
+  min-height: 480px;
 
   .pawz-hero-title {
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-size: clamp(3.5rem, 8vw, 6rem);
   }
 
   .pawz-hero-wireframe svg {
-    width: 1000px;
-    height: 1000px;
+    width: 1200px;
+    height: 1200px;
+    opacity: 0.6;
   }
 
   .pawz-hero-glow {
-    width: 900px;
-    height: 600px;
+    width: 1100px;
+    height: 700px;
   }
 }
 
