@@ -1,0 +1,150 @@
+<script type="text/discourse-plugin" version="0.8">
+  // ══════════════════════════════════════════════════════
+  //  OpenPawz Kinetic — Theme Plugin API
+  //  Full JS integration for grain, kinetic, transitions,
+  //  hero banner, loading screen, and category banners
+  // ══════════════════════════════════════════════════════
+
+  const body = document.body;
+
+  // ── Body classes based on settings ──────────────────
+  if (settings.openpawz_grain_overlay) {
+    body.classList.add("pawz-grain");
+  }
+  if (settings.openpawz_kinetic_animations) {
+    body.classList.add("pawz-kinetic");
+  }
+  if (settings.openpawz_page_transitions) {
+    body.classList.add("pawz-transitions");
+  }
+  if (settings.openpawz_enhanced_topic_cards) {
+    body.classList.add("pawz-enhanced-cards");
+  }
+  if (settings.openpawz_custom_loading) {
+    body.classList.add("pawz-custom-loading");
+  }
+  if (settings.openpawz_category_banners) {
+    body.classList.add("pawz-category-banners");
+  }
+
+  // ── Page transition animation ───────────────────────
+  if (settings.openpawz_page_transitions) {
+    api.onPageChange(() => {
+      const outlet = document.querySelector("#main-outlet");
+      if (outlet) {
+        outlet.classList.remove("pawz-page-enter");
+        void outlet.offsetWidth; // force reflow
+        outlet.classList.add("pawz-page-enter");
+      }
+    });
+  }
+
+  // ── Hero banner — inject on discovery (homepage) ────
+  if (settings.openpawz_show_hero_banner) {
+    api.onPageChange((url) => {
+      const isHomepage = url === "/" || url === "";
+      const existing = document.querySelector(".pawz-hero");
+
+      if (isHomepage && !existing) {
+        const outlet = document.querySelector("#main-outlet");
+        if (outlet) {
+          const hero = document.createElement("div");
+          hero.className = "pawz-hero";
+          hero.innerHTML = `
+            <div class="pawz-hero-glow"></div>
+            <div class="pawz-hero-content">
+              <div class="pawz-hero-badge">
+                <span class="pawz-hero-dot"></span>
+                Community
+              </div>
+              <h1 class="pawz-hero-title">${settings.openpawz_hero_title}</h1>
+              <p class="pawz-hero-subtitle">${settings.openpawz_hero_subtitle}</p>
+              <div class="pawz-hero-stats" id="pawz-hero-stats"></div>
+            </div>
+            <div class="pawz-hero-grid"></div>
+          `;
+          outlet.prepend(hero);
+
+          // Populate stats from Discourse site data
+          try {
+            const statsEl = document.getElementById("pawz-hero-stats");
+            const siteStats = api.container.lookup("service:site");
+            if (siteStats && statsEl) {
+              const categories = siteStats.get("categories");
+              const topicCount = categories
+                ? categories.reduce((sum, c) => sum + (c.topic_count || 0), 0)
+                : "—";
+              statsEl.innerHTML = `
+                <div class="pawz-hero-stat">
+                  <span class="pawz-hero-stat-value">${topicCount}</span>
+                  <span class="pawz-hero-stat-label">Topics</span>
+                </div>
+                <div class="pawz-hero-stat">
+                  <span class="pawz-hero-stat-value">${categories ? categories.length : "—"}</span>
+                  <span class="pawz-hero-stat-label">Categories</span>
+                </div>
+              `;
+            }
+          } catch (e) {
+            // stats are optional
+          }
+        }
+      } else if (!isHomepage && existing) {
+        existing.remove();
+      }
+    });
+  }
+
+  // ── Signal wave on new post ─────────────────────────
+  if (settings.openpawz_kinetic_animations) {
+    api.onPageChange(() => {
+      document.querySelectorAll(".topic-post").forEach((post) => {
+        if (!post.dataset.pawzObserved) {
+          post.dataset.pawzObserved = "1";
+          post.classList.add("pawz-materialise");
+        }
+      });
+    });
+  }
+
+  // ── Category banner injection ───────────────────────
+  if (settings.openpawz_category_banners) {
+    api.onPageChange((url) => {
+      const match = url.match(/^\/c\/([^/]+)/);
+      const existing = document.querySelector(".pawz-category-banner");
+
+      if (match && !existing) {
+        const outlet = document.querySelector("#main-outlet");
+        if (outlet) {
+          try {
+            const siteService = api.container.lookup("service:site");
+            const categories = siteService.get("categories");
+            const cat = categories
+              ? categories.find((c) => c.slug === match[1])
+              : null;
+
+            if (cat) {
+              const banner = document.createElement("div");
+              banner.className = "pawz-category-banner";
+              banner.style.setProperty("--cat-color", `#${cat.color}`);
+              banner.innerHTML = `
+                <div class="pawz-category-banner-inner">
+                  <div class="pawz-category-banner-dot" style="background:#${cat.color}"></div>
+                  <div>
+                    <h2 class="pawz-category-banner-name">${cat.name}</h2>
+                    ${cat.description_excerpt ? `<p class="pawz-category-banner-desc">${cat.description_excerpt}</p>` : ""}
+                  </div>
+                </div>
+              `;
+              outlet.prepend(banner);
+            }
+          } catch (e) {
+            // category lookup failed, skip banner
+          }
+        }
+      } else if (!match && existing) {
+        existing.remove();
+      }
+    });
+  }
+</script>

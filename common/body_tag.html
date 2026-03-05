@@ -1,0 +1,63 @@
+<script type="text/discourse-plugin" version="0.8">
+  // ══════════════════════════════════════════════════════
+  //  OpenPawz Kinetic — Custom Footer
+  //  Branded footer matching openpawz.com design
+  // ══════════════════════════════════════════════════════
+
+  if (settings.openpawz_show_custom_footer) {
+    api.onPageChange(() => {
+      if (document.querySelector(".pawz-footer")) return;
+
+      const siteUrl = settings.openpawz_site_url || "https://openpawz.com";
+      const githubUrl = settings.openpawz_github_url || "https://github.com/OpenPawz/openpawz";
+      const discordUrl = settings.openpawz_discord_url || "https://discord.gg/wVvmgrMV";
+      const docsUrl = settings.openpawz_docs_url || "https://docs.openpawz.ai";
+      const twitterUrl = settings.openpawz_twitter_url || "https://x.com/openpawzai";
+
+      const footer = document.createElement("footer");
+      footer.className = "pawz-footer";
+      footer.innerHTML = `
+        <div class="pawz-footer-inner">
+          <div class="pawz-footer-grid">
+            <div class="pawz-footer-brand">
+              <div class="pawz-footer-logo">
+                Open<span class="pawz-footer-accent">Pawz</span>
+              </div>
+              <p class="pawz-footer-tagline">Your AI, your rules.<br>Private by default, powerful by design.</p>
+            </div>
+            <div class="pawz-footer-col">
+              <h5 class="pawz-footer-heading">Product</h5>
+              <a href="${siteUrl}" class="pawz-footer-link" rel="noopener noreferrer">Website</a>
+              <a href="${docsUrl}" class="pawz-footer-link" rel="noopener noreferrer">Documentation</a>
+              <a href="${githubUrl}" class="pawz-footer-link" rel="noopener noreferrer">GitHub</a>
+              <a href="${githubUrl}/releases" class="pawz-footer-link" rel="noopener noreferrer">Releases</a>
+            </div>
+            <div class="pawz-footer-col">
+              <h5 class="pawz-footer-heading">Community</h5>
+              <a href="${discordUrl}" class="pawz-footer-link" rel="noopener noreferrer">Discord</a>
+              <a href="${twitterUrl}" class="pawz-footer-link" rel="noopener noreferrer">X / Twitter</a>
+              <a href="${githubUrl}/blob/main/CONTRIBUTING.md" class="pawz-footer-link" rel="noopener noreferrer">Contributing</a>
+              <a href="${siteUrl}/contact" class="pawz-footer-link" rel="noopener noreferrer">Contact</a>
+            </div>
+            <div class="pawz-footer-col">
+              <h5 class="pawz-footer-heading">Legal</h5>
+              <a href="${siteUrl}/privacy" class="pawz-footer-link" rel="noopener noreferrer">Privacy</a>
+              <a href="${siteUrl}/terms" class="pawz-footer-link" rel="noopener noreferrer">Terms</a>
+              <a href="${siteUrl}/security" class="pawz-footer-link" rel="noopener noreferrer">Security</a>
+            </div>
+          </div>
+          <div class="pawz-footer-bottom">
+            <span class="pawz-footer-copy">&copy; ${new Date().getFullYear()} OpenPawz. Open source under MIT.</span>
+            <span class="pawz-footer-made">Built with <span class="pawz-footer-heart">&#9829;</span> for private AI</span>
+          </div>
+        </div>
+      `;
+
+      // Insert before Discourse's own footer
+      const mainWrap = document.querySelector("#main-outlet-wrapper") || document.querySelector("#main-outlet");
+      if (mainWrap) {
+        mainWrap.parentNode.insertBefore(footer, mainWrap.nextSibling);
+      }
+    });
+  }
+</script>

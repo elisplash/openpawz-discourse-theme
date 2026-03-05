@@ -1,0 +1,57 @@
+{
+  "name": "OpenPawz Kinetic",
+  "about_url": "https://openpawz.com",
+  "license_url": "https://github.com/OpenPawz/discourse-theme/blob/main/LICENSE",
+  "component": false,
+  "color_schemes": {
+    "OpenPawz Dark": {
+      "primary": "EDE6DB",
+      "secondary": "080808",
+      "tertiary": "FF4D4D",
+      "quaternary": "FF6B6B",
+      "header_background": "0e0e0e",
+      "header_primary": "EDE6DB",
+      "highlight": "FF4D4D",
+      "danger": "FF4D4D",
+      "success": "8FB0A0",
+      "love": "FF4D4D"
+    },
+    "OpenPawz Light": {
+      "primary": "1A1815",
+      "secondary": "F5F0EB",
+      "tertiary": "CC3333",
+      "quaternary": "B02828",
+      "header_background": "EDE8E2",
+      "header_primary": "1A1815",
+      "highlight": "CC3333",
+      "danger": "CC3333",
+      "success": "6D9485",
+      "love": "CC3333"
+    },
+    "OpenPawz Midnight": {
+      "primary": "D4DEF0",
+      "secondary": "0B1120",
+      "tertiary": "4D9EFF",
+      "quaternary": "6DB3FF",
+      "header_background": "0F1729",
+      "header_primary": "D4DEF0",
+      "highlight": "4D9EFF",
+      "danger": "FF4D4D",
+      "success": "64C8B4",
+      "love": "4D9EFF"
+    },
+    "OpenPawz Cyberpunk": {
+      "primary": "E0E8F0",
+      "secondary": "0A0A12",
+      "tertiary": "FF2D78",
+      "quaternary": "FF5599",
+      "header_background": "0E0E1A",
+      "header_primary": "E0E8F0",
+      "highlight": "FF2D78",
+      "danger": "FF4D4D",
+      "success": "00FFC8",
+      "love": "FF2D78"
+    }
+  },
+  "assets": {}
+}

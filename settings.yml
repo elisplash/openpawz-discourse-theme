@@ -1,0 +1,84 @@
+openpawz_grain_overlay:
+  default: true
+  type: bool
+  description: "Enable the film grain texture overlay (matches OpenPawz desktop app)"
+
+openpawz_kinetic_animations:
+  default: true
+  type: bool
+  description: "Enable kinetic motion animations (breathing indicators, spring hover, signal sweeps)"
+
+openpawz_logo_url:
+  default: ""
+  type: string
+  description: "URL to your OpenPawz logo (PNG, transparent background recommended)"
+
+openpawz_show_back_to_site:
+  default: true
+  type: bool
+  description: "Show a 'Back to OpenPawz' link in the header"
+
+openpawz_site_url:
+  default: "https://openpawz.com"
+  type: string
+  description: "URL for the 'Back to OpenPawz' link"
+
+openpawz_show_hero_banner:
+  default: true
+  type: bool
+  description: "Show the branded hero banner on the homepage"
+
+openpawz_hero_title:
+  default: "Welcome to the Pawz Den"
+  type: string
+  description: "Hero banner headline text"
+
+openpawz_hero_subtitle:
+  default: "Discuss, build, and shape the future of private AI — together."
+  type: string
+  description: "Hero banner subtitle text"
+
+openpawz_show_custom_footer:
+  default: true
+  type: bool
+  description: "Show the branded OpenPawz footer"
+
+openpawz_github_url:
+  default: "https://github.com/OpenPawz/openpawz"
+  type: string
+  description: "GitHub repository URL for footer links"
+
+openpawz_discord_url:
+  default: "https://discord.gg/wVvmgrMV"
+  type: string
+  description: "Discord invite URL for footer links"
+
+openpawz_docs_url:
+  default: "https://docs.openpawz.ai"
+  type: string
+  description: "Documentation URL for footer links"
+
+openpawz_twitter_url:
+  default: "https://x.com/openpawzai"
+  type: string
+  description: "X/Twitter URL for footer links"
+
+openpawz_custom_loading:
+  default: true
+  type: bool
+  description: "Use custom Pawz-branded loading animation instead of default spinner"
+
+openpawz_category_banners:
+  default: true
+  type: bool
+  description: "Show accent-colored category header banners on category pages"
+
+openpawz_enhanced_topic_cards:
+  default: true
+  type: bool
+  description: "Use enhanced topic card styling with accent hover borders and glow effects"
+
+openpawz_page_transitions:
+  default: true
+  type: bool
+  description: "Enable retroFadeIn page transition animations"

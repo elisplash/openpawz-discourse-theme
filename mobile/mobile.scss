@@ -1,0 +1,234 @@
+// ══════════════════════════════════════════════════════════
+//  OpenPawz Kinetic — Mobile-specific SCSS
+//  Compact layout, touch-friendly targets, simplified UI
+// ══════════════════════════════════════════════════════════
+
+// Full-width layout
+#main-outlet-wrapper {
+  padding: 0 8px;
+}
+
+// Mobile header — compact
+.d-header-wrap .d-header {
+  height: 48px;
+}
+
+// Mobile nav pills — horizontal scroll
+.navigation-container .nav-pills {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  flex-wrap: nowrap;
+
+  > li > a {
+    padding: 8px 12px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+}
+
+// Topic list — tighter but still readable
+.topic-list .topic-list-item {
+  td {
+    padding: 10px 8px;
+  }
+
+  .main-link .link-top-line a.title {
+    font-size: 14px;
+  }
+}
+
+// Mobile topic body — full width
+.topic-body .contents {
+  max-width: 100%;
+}
+
+// Bottom bar above tab bar
+.pawz-back-bar {
+  .pawz-back-tagline {
+    display: none;
+  }
+
+  .pawz-back-bar-inner {
+    justify-content: center;
+  }
+}
+
+// Compact composer
+#reply-control {
+  .d-editor-textarea-wrapper textarea {
+    font-size: 14px;
+  }
+}
+
+// Touch-friendly buttons
+.btn {
+  min-height: 40px;
+  padding: 8px 14px;
+}
+
+#create-topic {
+  min-height: 44px;
+  padding: 10px 18px;
+}
+
+// Mobile modals — full width
+.modal-inner-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0;
+  border-radius: 0;
+  min-height: 100vh;
+}
+
+// Mobile user card — full width sheet
+.user-card,
+#user-card {
+  width: 100% !important;
+  left: 0 !important;
+  border-radius: 0;
+}
+
+// Disable spring animations on mobile (performance)
+.pawz-kinetic .topic-list-item:hover,
+.pawz-kinetic .category-box:hover {
+  transform: none;
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE HERO BANNER — Compact layout
+// ══════════════════════════════════════════════════════════
+
+.pawz-hero {
+  padding: 2.5rem 1.5rem 2rem;
+  margin: -10px -10px 15px;
+
+  .pawz-hero-glow {
+    width: 300px;
+    height: 250px;
+  }
+
+  .pawz-hero-title {
+    font-size: 1.5rem;
+  }
+
+  .pawz-hero-subtitle {
+    font-size: 13px;
+  }
+
+  .pawz-hero-stats {
+    flex-wrap: wrap;
+  }
+
+  .pawz-hero-stat {
+    padding: 10px 20px;
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .pawz-hero-stat-value {
+    font-size: 1rem;
+  }
+
+  .pawz-hero-grid {
+    background-size: 40px 40px;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE CATEGORY BANNER — Stacked
+// ══════════════════════════════════════════════════════════
+
+.pawz-category-banner {
+  padding: 1.5rem 1rem;
+  margin: -10px -10px 15px;
+
+  .pawz-category-banner-name {
+    font-size: 1.2rem;
+  }
+
+  .pawz-category-banner-desc {
+    font-size: 12px;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE FOOTER — Stacked columns
+// ══════════════════════════════════════════════════════════
+
+.pawz-footer {
+  padding: 2rem 1.5rem;
+
+  .pawz-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .pawz-footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE ENHANCED CARDS — Simplified
+// ══════════════════════════════════════════════════════════
+
+.pawz-enhanced-cards .topic-list .topic-list-item {
+  &::before {
+    display: none;
+  }
+
+  &:hover::after {
+    display: none;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE BADGES — Single column
+// ══════════════════════════════════════════════════════════
+
+.badges-listing {
+  grid-template-columns: 1fr;
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE GROUPS — Single column
+// ══════════════════════════════════════════════════════════
+
+.groups-boxes {
+  grid-template-columns: 1fr;
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE — Disable signal sweep animation (performance)
+// ══════════════════════════════════════════════════════════
+
+.pawz-kinetic .topic-list-item:hover::after {
+  display: none;
+}
+
+// Disable logo pulse on mobile
+.pawz-kinetic .d-header .logo-big,
+.pawz-kinetic .d-header .logo-small {
+  animation: none;
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE LOGIN — Full width
+// ══════════════════════════════════════════════════════════
+
+.login-modal .modal-inner-container,
+.create-account .modal-inner-container {
+  max-width: 100%;
+  min-height: 100vh;
+}
+
+// ══════════════════════════════════════════════════════════
+//  MOBILE NOTIFICATION PANEL — Full width sheet
+// ══════════════════════════════════════════════════════════
+
+.quick-access-panel {
+  width: 100%;
+  max-width: 100%;
+}
