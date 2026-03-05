@@ -3,9 +3,10 @@
 //  Wider layout, sidebar refinements, full topic polish
 // ══════════════════════════════════════════════════════════
 
-// Wider content area
+// Wider content area — use all available space
 #main-outlet-wrapper {
-  max-width: 1320px;
+  max-width: 100%;
+  padding: 0 20px;
 }
 
 // Desktop sidebar — proper width and cleaner
@@ -19,9 +20,36 @@
   }
 }
 
-// Topic list — comfortable spacing
-.topic-list .topic-list-item td {
-  padding: 12px;
+// Topic list — comfortable spacing, full width
+.topic-list {
+  width: 100%;
+  table-layout: fixed;
+
+  .topic-list-item td {
+    padding: 12px;
+  }
+
+  // Give the title column most space
+  .main-link {
+    width: auto;
+  }
+
+  // Compact data columns
+  .posters {
+    width: 80px;
+  }
+
+  .num.posts {
+    width: 70px;
+  }
+
+  .num.views {
+    width: 70px;
+  }
+
+  .num.activity {
+    width: 70px;
+  }
 }
 
 // Topic body — comfortable reading width
@@ -47,12 +75,13 @@
   padding: 10px 16px;
 }
 
-// Desktop header — fixed height with centered content
+// Desktop header — fixed height, full width
 .d-header-wrap .d-header {
   height: 54px;
 
   .wrap {
-    max-width: 1320px;
+    max-width: 100%;
+    padding: 0 20px;
   }
 }
 
