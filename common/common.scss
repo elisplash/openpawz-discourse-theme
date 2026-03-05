@@ -1101,54 +1101,111 @@ table {
 }
 
 // ══════════════════════════════════════════════════════════
-//  HERO BANNER — Branded homepage hero
-//  Radial accent glow, grid pattern, animated dot
+//  HERO BANNER — Website-matched tesseract wireframe style
+//  Bold gradient text, geometric wireframe background
 // ══════════════════════════════════════════════════════════
 
 .pawz-hero {
   position: relative;
   overflow: hidden;
-  padding: 4rem 2rem 3rem;
+  padding: 5rem 2rem 4rem;
   margin: -15px -15px 20px;
   background: var(--pawz-bg);
   border-bottom: 1px solid var(--pawz-border);
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  .pawz-hero-glow {
-    position: absolute;
-    top: -40%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(var(--pawz-atmo-color), 0.08) 0%,
-      rgba(var(--pawz-atmo-color), 0.03) 40%,
-      transparent 70%
-    );
-    pointer-events: none;
-    animation: pawz-hero-glow-pulse 6s ease-in-out infinite;
-  }
-
-  .pawz-hero-grid {
+  // ── Tesseract wireframe SVG background ──
+  .pawz-hero-wireframe {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.03;
-    background-image:
-      linear-gradient(var(--pawz-text-muted) 1px, transparent 1px),
-      linear-gradient(90deg, var(--pawz-text-muted) 1px, transparent 1px);
-    background-size: 60px 60px;
+    overflow: hidden;
+    z-index: 0;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 800px;
+      height: 800px;
+      transform: translate(-50%, -50%);
+      opacity: 0.35;
+      animation: pawz-wireframe-rotate 40s linear infinite;
+    }
   }
 
+  // ── Radial glow behind text — golden/warm ──
+  .pawz-hero-glow {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(212, 168, 83, 0.12) 0%,
+      rgba(255, 140, 40, 0.06) 35%,
+      transparent 65%
+    );
+    pointer-events: none;
+    animation: pawz-hero-glow-pulse 6s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  // ── Content container ──
   .pawz-hero-content {
     position: relative;
-    z-index: 1;
-    max-width: 680px;
+    z-index: 2;
+    max-width: 900px;
     margin: 0 auto;
     text-align: center;
   }
 
+  // ── Logo ──
+  .pawz-hero-logo {
+    margin-bottom: 1.5rem;
+
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--pawz-radius-sm);
+      filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.3));
+    }
+  }
+
+  // ── Headline — massive bold gradient text ──
+  .pawz-hero-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    background: linear-gradient(
+      180deg,
+      #ede6db 0%,
+      #d4a853 50%,
+      #ff8c28 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  // ── Subtitle ──
+  .pawz-hero-subtitle {
+    font-size: 15px;
+    color: var(--pawz-text-secondary);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto 1.75rem;
+  }
+
+  // ── Badge ──
   .pawz-hero-badge {
     display: inline-flex;
     align-items: center;
@@ -1158,8 +1215,8 @@ table {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--pawz-accent);
-    border: 1px solid var(--pawz-accent-muted);
+    color: var(--pawz-gold);
+    border: 1px solid rgba(212, 168, 83, 0.25);
     border-radius: var(--pawz-radius-sm);
     margin-bottom: 1.5rem;
   }
@@ -1172,24 +1229,7 @@ table {
     animation: k-breathe-pulse 3s ease-in-out infinite;
   }
 
-  .pawz-hero-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-weight: 700;
-    color: var(--pawz-text-primary);
-    line-height: 1.15;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-  }
-
-  .pawz-hero-subtitle {
-    font-size: 14px;
-    color: var(--pawz-text-secondary);
-    line-height: 1.6;
-    max-width: 480px;
-    margin: 0 auto 1.5rem;
-  }
-
+  // ── Stats row ──
   .pawz-hero-stats {
     display: flex;
     justify-content: center;
@@ -1203,14 +1243,15 @@ table {
     padding: 12px 28px;
     border: 1px solid var(--pawz-border);
     margin: -0.5px;
-    background: var(--pawz-bg-secondary);
+    background: rgba(14, 14, 14, 0.7);
+    backdrop-filter: blur(8px);
   }
 
   .pawz-hero-stat-value {
     font-family: var(--pawz-font-pixel);
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--pawz-accent);
+    color: var(--pawz-gold);
   }
 
   .pawz-hero-stat-label {
@@ -1223,9 +1264,15 @@ table {
   }
 }
 
+// ── Wireframe rotation ──
+@keyframes pawz-wireframe-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 @keyframes pawz-hero-glow-pulse {
-  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
-  50% { opacity: 0.7; transform: translateX(-50%) scale(1.05); }
+  0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.08); }
 }
 
 // ══════════════════════════════════════════════════════════
@@ -1775,8 +1822,8 @@ table {
 
 .topic-list .topic-excerpt {
   color: var(--pawz-text-muted);
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 12.5px;
+  line-height: 1.55;
   margin-top: 4px;
 }
 
@@ -2209,17 +2256,15 @@ table {
   }
 }
 
-// Topic excerpts — cleaner truncation
+// Topic excerpts — allow natural display
 .topic-list .topic-excerpt {
   color: var(--pawz-text-muted);
   font-size: 12.5px;
-  line-height: 1.5;
+  line-height: 1.55;
   margin-top: 5px;
-  max-height: 2.25em;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  max-height: none;
+  overflow: visible;
+  display: block;
 }
 
 // Replies/Views/Activity columns — compact

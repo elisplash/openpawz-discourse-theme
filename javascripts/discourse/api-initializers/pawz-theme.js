@@ -50,18 +50,67 @@ export default apiInitializer("1.0", (api) => {
           const title = settings.openpawz_hero_title;
           const subtitle = settings.openpawz_hero_subtitle;
 
+          // Tesseract wireframe SVG — golden geometric lines
+          const wireframeSvg = `<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pawz-wire-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#D4A853;stop-opacity:0.6"/>
+                <stop offset="50%" style="stop-color:#FF8C28;stop-opacity:0.8"/>
+                <stop offset="100%" style="stop-color:#D4A853;stop-opacity:0.4"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke="url(#pawz-wire-grad)" stroke-width="1.2">
+              <!-- Outer cube -->
+              <polygon points="200,200 600,200 600,600 200,600"/>
+              <polygon points="280,140 680,140 680,540 280,540"/>
+              <line x1="200" y1="200" x2="280" y2="140"/>
+              <line x1="600" y1="200" x2="680" y2="140"/>
+              <line x1="600" y1="600" x2="680" y2="540"/>
+              <line x1="200" y1="600" x2="280" y2="540"/>
+              <!-- Inner cube -->
+              <polygon points="310,310 490,310 490,490 310,490"/>
+              <polygon points="350,270 530,270 530,450 350,450"/>
+              <line x1="310" y1="310" x2="350" y2="270"/>
+              <line x1="490" y1="310" x2="530" y2="270"/>
+              <line x1="490" y1="490" x2="530" y2="450"/>
+              <line x1="310" y1="490" x2="350" y2="450"/>
+              <!-- Connections outer to inner -->
+              <line x1="200" y1="200" x2="310" y2="310" stroke-dasharray="6,8"/>
+              <line x1="600" y1="200" x2="490" y2="310" stroke-dasharray="6,8"/>
+              <line x1="600" y1="600" x2="490" y2="490" stroke-dasharray="6,8"/>
+              <line x1="200" y1="600" x2="310" y2="490" stroke-dasharray="6,8"/>
+              <line x1="280" y1="140" x2="350" y2="270" stroke-dasharray="6,8"/>
+              <line x1="680" y1="140" x2="530" y2="270" stroke-dasharray="6,8"/>
+              <line x1="680" y1="540" x2="530" y2="450" stroke-dasharray="6,8"/>
+              <line x1="280" y1="540" x2="350" y2="450" stroke-dasharray="6,8"/>
+              <!-- Accent diagonals -->
+              <line x1="200" y1="200" x2="600" y2="600" stroke-opacity="0.15"/>
+              <line x1="600" y1="200" x2="200" y2="600" stroke-opacity="0.15"/>
+              <line x1="280" y1="140" x2="680" y2="540" stroke-opacity="0.15"/>
+              <!-- Node dots -->
+              <circle cx="200" cy="200" r="3" fill="#D4A853" fill-opacity="0.5"/>
+              <circle cx="600" cy="200" r="3" fill="#D4A853" fill-opacity="0.5"/>
+              <circle cx="600" cy="600" r="3" fill="#FF8C28" fill-opacity="0.5"/>
+              <circle cx="200" cy="600" r="3" fill="#FF8C28" fill-opacity="0.5"/>
+              <circle cx="400" cy="400" r="4" fill="#D4A853" fill-opacity="0.7"/>
+              <circle cx="280" cy="140" r="3" fill="#D4A853" fill-opacity="0.4"/>
+              <circle cx="680" cy="140" r="3" fill="#D4A853" fill-opacity="0.4"/>
+              <circle cx="680" cy="540" r="3" fill="#FF8C28" fill-opacity="0.4"/>
+              <circle cx="280" cy="540" r="3" fill="#FF8C28" fill-opacity="0.4"/>
+            </g>
+          </svg>`;
+
           hero.innerHTML = `
+            <div class="pawz-hero-wireframe">${wireframeSvg}</div>
             <div class="pawz-hero-glow"></div>
             <div class="pawz-hero-content">
-              <div class="pawz-hero-badge">
-                <span class="pawz-hero-dot"></span>
-                Community
+              <div class="pawz-hero-logo">
+                <img src="${settings.openpawz_logo_url || ""}" alt="" onerror="this.parentElement.style.display='none'"/>
               </div>
               <h1 class="pawz-hero-title"></h1>
               <p class="pawz-hero-subtitle"></p>
               <div class="pawz-hero-stats" id="pawz-hero-stats"></div>
             </div>
-            <div class="pawz-hero-grid"></div>
           `;
 
           hero.querySelector(".pawz-hero-title").textContent = title;

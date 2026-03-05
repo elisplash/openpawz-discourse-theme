@@ -29,12 +29,12 @@ openpawz_show_hero_banner:
   description: "Show the branded hero banner on the homepage"
 
 openpawz_hero_title:
-  default: "Welcome to the Pawz Den"
+  default: "Stop building automations. Start stating outcomes."
   type: string
   description: "Hero banner headline text"
 
 openpawz_hero_subtitle:
-  default: "Discuss, build, and shape the future of private AI — together."
+  default: "Four original protocols. ~5MB. Runs on your hardware."
   type: string
   description: "Hero banner subtitle text"
 

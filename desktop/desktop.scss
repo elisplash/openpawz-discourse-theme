@@ -101,19 +101,25 @@
 }
 
 // ══════════════════════════════════════════════════════════
-//  DESKTOP HERO BANNER — Full width, taller
+//  DESKTOP HERO BANNER — Full width, taller, bigger wireframe
 // ══════════════════════════════════════════════════════════
 
 .pawz-hero {
-  padding: 5rem 2rem 4rem;
+  padding: 6rem 2rem 5rem;
+  min-height: 420px;
 
   .pawz-hero-title {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .pawz-hero-wireframe svg {
+    width: 1000px;
+    height: 1000px;
   }
 
   .pawz-hero-glow {
     width: 900px;
-    height: 500px;
+    height: 600px;
   }
 }
 
