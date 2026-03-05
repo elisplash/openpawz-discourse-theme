@@ -9,6 +9,11 @@
   padding: 0 20px;
 }
 
+// Main outlet itself
+#main-outlet {
+  max-width: 100%;
+}
+
 // Desktop sidebar — proper width and cleaner
 .sidebar-wrapper {
   width: 240px;
@@ -20,35 +25,29 @@
   }
 }
 
-// Topic list — comfortable spacing, full width
+// Topic list — natural column sizing, title gets remaining space
 .topic-list {
   width: 100%;
-  table-layout: fixed;
 
   .topic-list-item td {
     padding: 12px;
+    white-space: nowrap;
   }
 
-  // Give the title column most space
-  .main-link {
-    width: auto;
+  // Title column wraps normally
+  .topic-list-item td.main-link {
+    width: 100%;
+    white-space: normal;
   }
 
-  // Compact data columns
-  .posters {
-    width: 80px;
+  // Keep data columns compact
+  .topic-list-item td.posters {
+    width: 1%;
   }
 
-  .num.posts {
-    width: 70px;
-  }
-
-  .num.views {
-    width: 70px;
-  }
-
-  .num.activity {
-    width: 70px;
+  .topic-list-item td.num {
+    width: 1%;
+    text-align: right;
   }
 }
 
@@ -83,6 +82,16 @@
     max-width: 100%;
     padding: 0 20px;
   }
+}
+
+// Ensure all Discourse .wrap containers use full width
+.wrap {
+  max-width: 100% !important;
+}
+
+// List controls full width
+.list-controls {
+  max-width: 100%;
 }
 
 // Desktop timeline (right side on topic pages)

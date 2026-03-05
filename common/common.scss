@@ -2132,9 +2132,12 @@ table {
 //  SEARCH — Compact, not oversized
 // ══════════════════════════════════════════════════════════
 
-// Homepage search bar (the big one) — hide on homepage, use header search
-.search-banner {
-  display: none;
+// Homepage search bar (the big one) — hide, use header search instead
+.search-banner,
+.custom-search-banner,
+.search-banner-container,
+[class*="search-banner"] {
+  display: none !important;
 }
 
 // Header search menu — compact dropdown
