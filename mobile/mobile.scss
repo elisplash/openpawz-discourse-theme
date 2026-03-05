@@ -42,14 +42,48 @@
   max-width: 100%;
 }
 
-// Bottom bar above tab bar
-.pawz-back-bar {
-  .pawz-back-tagline {
+// Top nav — mobile compact
+.pawz-topnav {
+  .pawz-topnav-links {
     display: none;
   }
 
-  .pawz-back-bar-inner {
-    justify-content: center;
+  .pawz-topnav-inner {
+    height: 36px;
+    padding: 0 12px;
+  }
+
+  .pawz-topnav-brand {
+    font-size: 13px;
+    margin-right: 8px;
+  }
+
+  .pawz-topnav-cta {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+}
+
+// Community Highlights — 1-2 columns on mobile
+.pawz-highlights {
+  padding: 1.5rem 1rem 1rem;
+  margin: 0 -10px 12px;
+
+  .pawz-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .pawz-highlight-img {
+    height: 90px;
+  }
+
+  .pawz-highlight-card-title {
+    font-size: 13px;
+  }
+
+  .pawz-highlight-body {
+    padding: 10px 12px 12px;
   }
 }
 

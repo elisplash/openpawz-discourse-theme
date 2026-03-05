@@ -1,10 +1,37 @@
-{{#if settings.openpawz_show_back_to_site}}
-<div class="pawz-back-bar">
-  <div class="pawz-back-bar-inner">
-    <a href="{{settings.openpawz_site_url}}" class="pawz-back-link" target="_blank" rel="noopener noreferrer">
-      ← Back to OpenPawz
+{{#if settings.openpawz_show_top_nav}}
+<div class="pawz-topnav">
+  <div class="pawz-topnav-inner">
+    <a href="{{settings.openpawz_site_url}}" class="pawz-topnav-brand" rel="noopener noreferrer">
+      Open<span class="pawz-topnav-accent">Pawz</span>
     </a>
-    <div class="pawz-back-tagline">Community Forum</div>
+    <nav class="pawz-topnav-links">
+      <div class="pawz-topnav-item pawz-topnav-dropdown">
+        <button class="pawz-topnav-link" type="button" aria-expanded="false">Product <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="pawz-topnav-menu">
+          <a href="{{settings.openpawz_site_url}}" rel="noopener noreferrer">Website</a>
+          <a href="{{settings.openpawz_github_url}}" rel="noopener noreferrer">GitHub</a>
+          <a href="{{settings.openpawz_github_url}}/releases" rel="noopener noreferrer">Releases</a>
+        </div>
+      </div>
+      <div class="pawz-topnav-item pawz-topnav-dropdown">
+        <button class="pawz-topnav-link" type="button" aria-expanded="false">Docs <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="pawz-topnav-menu">
+          <a href="{{settings.openpawz_docs_url}}" rel="noopener noreferrer">Documentation</a>
+          <a href="{{settings.openpawz_docs_url}}/api" rel="noopener noreferrer">API Reference</a>
+        </div>
+      </div>
+      <div class="pawz-topnav-item pawz-topnav-dropdown">
+        <button class="pawz-topnav-link" type="button" aria-expanded="false">Community <svg viewBox="0 0 10 6" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="pawz-topnav-menu">
+          <a href="{{settings.openpawz_discord_url}}" rel="noopener noreferrer">Discord</a>
+          <a href="{{settings.openpawz_twitter_url}}" rel="noopener noreferrer">X / Twitter</a>
+          <a href="/" class="pawz-topnav-current">Forum</a>
+        </div>
+      </div>
+    </nav>
+    <a href="{{settings.openpawz_site_url}}" class="pawz-topnav-cta" rel="noopener noreferrer">
+      ← Back to Site
+    </a>
   </div>
 </div>
 {{/if}}

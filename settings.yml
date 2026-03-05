@@ -82,3 +82,20 @@ openpawz_page_transitions:
   default: true
   type: bool
   description: "Enable retroFadeIn page transition animations"
+
+openpawz_show_top_nav:
+  default: true
+  type: bool
+  description: "Show the top navigation bar with Product, Docs, Community links above the header"
+
+openpawz_show_community_highlights:
+  default: true
+  type: bool
+  description: "Show Community Highlights section with featured/pinned topics on the homepage"
+
+openpawz_highlights_count:
+  default: 4
+  type: integer
+  min: 2
+  max: 8
+  description: "Number of topics to show in Community Highlights"

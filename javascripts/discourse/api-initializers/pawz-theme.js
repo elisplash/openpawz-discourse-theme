@@ -219,6 +219,208 @@ export default apiInitializer("1.0", (api) => {
     });
   }
 
+  // ── Top nav dropdown keyboard accessibility ──────────
+  if (settings.openpawz_show_top_nav) {
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".pawz-topnav-dropdown")) {
+        document.querySelectorAll(".pawz-topnav-dropdown.is-open").forEach((d) => {
+          d.classList.remove("is-open");
+          const btn = d.querySelector(".pawz-topnav-link");
+          if (btn) btn.setAttribute("aria-expanded", "false");
+        });
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".pawz-topnav-link");
+      if (btn) {
+        const dropdown = btn.closest(".pawz-topnav-dropdown");
+        if (dropdown) {
+          const wasOpen = dropdown.classList.contains("is-open");
+          // Close all others
+          document.querySelectorAll(".pawz-topnav-dropdown.is-open").forEach((d) => {
+            d.classList.remove("is-open");
+            const b = d.querySelector(".pawz-topnav-link");
+            if (b) b.setAttribute("aria-expanded", "false");
+          });
+          if (!wasOpen) {
+            dropdown.classList.add("is-open");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        }
+      }
+    });
+  }
+
+  // ── Community Highlights — featured topics cards ────
+  if (settings.openpawz_show_community_highlights) {
+    api.onPageChange((url) => {
+      const isHomepage = url === "/" || url === "";
+      const existing = document.querySelector(".pawz-highlights");
+
+      if (isHomepage && !existing) {
+        const outlet = document.querySelector("#main-outlet");
+        if (!outlet) return;
+
+        const section = document.createElement("section");
+        section.className = "pawz-highlights";
+
+        const header = document.createElement("div");
+        header.className = "pawz-highlights-header";
+
+        const headingWrap = document.createElement("div");
+        const h2 = document.createElement("h2");
+        h2.className = "pawz-highlights-title";
+        h2.textContent = "Community Highlights";
+        const sub = document.createElement("p");
+        sub.className = "pawz-highlights-subtitle";
+        sub.textContent = "Featured discussions from the community";
+        headingWrap.appendChild(h2);
+        headingWrap.appendChild(sub);
+        header.appendChild(headingWrap);
+
+        const grid = document.createElement("div");
+        grid.className = "pawz-highlights-grid";
+
+        // Loading skeleton
+        const count = settings.openpawz_highlights_count || 4;
+        for (let i = 0; i < count; i++) {
+          const skel = document.createElement("div");
+          skel.className = "pawz-highlight-card pawz-highlight-skeleton";
+          skel.innerHTML = '<div class="pawz-highlight-img-skeleton"></div><div class="pawz-highlight-text-skeleton"></div><div class="pawz-highlight-text-skeleton short"></div>';
+          grid.appendChild(skel);
+        }
+
+        section.appendChild(header);
+        section.appendChild(grid);
+
+        // Insert after hero or at top of outlet
+        const hero = outlet.querySelector(".pawz-hero");
+        if (hero) {
+          hero.after(section);
+        } else {
+          outlet.prepend(section);
+        }
+
+        // Fetch topics — try pinned first, fallback to top
+        fetch("/latest.json")
+          .then((r) => r.json())
+          .then((data) => {
+            const topics = data.topic_list.topics || [];
+            const users = data.users || [];
+
+            // Prefer pinned topics, then fall back to most active
+            let featured = topics.filter((t) => t.pinned || t.pinned_globally);
+            if (featured.length < count) {
+              const remaining = topics
+                .filter((t) => !t.pinned && !t.pinned_globally)
+                .sort((a, b) => (b.like_count || 0) - (a.like_count || 0));
+              featured = featured.concat(remaining);
+            }
+            featured = featured.slice(0, count);
+
+            // Get category map
+            let categories = [];
+            try {
+              const siteService = api.container.lookup("service:site");
+              categories = siteService.get("categories") || [];
+            } catch (e) {
+              // ignore
+            }
+            const catMap = {};
+            categories.forEach((c) => {
+              catMap[c.id] = c;
+            });
+
+            // Clear skeletons  
+            grid.innerHTML = "";
+
+            featured.forEach((topic) => {
+              const card = document.createElement("a");
+              card.className = "pawz-highlight-card";
+              card.href = "/t/" + topic.slug + "/" + topic.id;
+
+              // Topic image — try image_url, then category logo
+              const cat = catMap[topic.category_id];
+              const imgUrl =
+                topic.image_url ||
+                (cat && cat.uploaded_logo ? cat.uploaded_logo.url : null);
+
+              if (imgUrl) {
+                const imgWrap = document.createElement("div");
+                imgWrap.className = "pawz-highlight-img";
+                const img = document.createElement("img");
+                img.src = imgUrl;
+                img.alt = "";
+                img.loading = "lazy";
+                imgWrap.appendChild(img);
+                card.appendChild(imgWrap);
+              } else {
+                // Geometric placeholder
+                const placeholder = document.createElement("div");
+                placeholder.className = "pawz-highlight-img pawz-highlight-placeholder";
+                const hue = (topic.id * 47) % 360;
+                placeholder.style.setProperty("--ph-hue", hue);
+                card.appendChild(placeholder);
+              }
+
+              const body = document.createElement("div");
+              body.className = "pawz-highlight-body";
+
+              // Category badge
+              if (cat) {
+                const catBadge = document.createElement("span");
+                catBadge.className = "pawz-highlight-cat";
+                catBadge.style.setProperty("--cat-color", "#" + cat.color);
+                catBadge.textContent = cat.name;
+                body.appendChild(catBadge);
+              }
+
+              const title = document.createElement("h3");
+              title.className = "pawz-highlight-card-title";
+              title.textContent = topic.title;
+              body.appendChild(title);
+
+              const meta = document.createElement("div");
+              meta.className = "pawz-highlight-meta";
+              meta.innerHTML =
+                '<span class="pawz-highlight-stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' +
+                (topic.posts_count - 1) +
+                "</span>" +
+                '<span class="pawz-highlight-stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>' +
+                (topic.like_count || 0) +
+                "</span>" +
+                '<span class="pawz-highlight-stat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+                timeAgo(topic.last_posted_at || topic.created_at) +
+                "</span>";
+              body.appendChild(meta);
+
+              card.appendChild(body);
+              grid.appendChild(card);
+            });
+          })
+          .catch(() => {
+            // Failed to load — remove section
+            section.remove();
+          });
+      } else if (!isHomepage && existing) {
+        existing.remove();
+      }
+    });
+  }
+
+  // Utility: relative time
+  function timeAgo(dateStr) {
+    const now = Date.now();
+    const then = new Date(dateStr).getTime();
+    const diff = Math.floor((now - then) / 1000);
+    if (diff < 60) return "just now";
+    if (diff < 3600) return Math.floor(diff / 60) + "m";
+    if (diff < 86400) return Math.floor(diff / 3600) + "h";
+    if (diff < 604800) return Math.floor(diff / 86400) + "d";
+    return Math.floor(diff / 604800) + "w";
+  }
+
   // ── Signal wave on new post ─────────────────────────
   if (settings.openpawz_kinetic_animations) {
     api.onPageChange(() => {

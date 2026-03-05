@@ -101,6 +101,30 @@
 }
 
 // ══════════════════════════════════════════════════════════
+//  DESKTOP TOP NAV — Wider spacing
+// ══════════════════════════════════════════════════════════
+
+.pawz-topnav-inner {
+  padding: 0 24px;
+}
+
+.pawz-topnav-link {
+  padding: 10px 14px;
+}
+
+// ══════════════════════════════════════════════════════════
+//  DESKTOP COMMUNITY HIGHLIGHTS — 4-column grid
+// ══════════════════════════════════════════════════════════
+
+.pawz-highlights {
+  padding: 2.5rem 2rem 2rem;
+
+  .pawz-highlights-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
 //  DESKTOP HERO BANNER — Slightly taller on desktop
 // ══════════════════════════════════════════════════════════
 
