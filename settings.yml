@@ -19,7 +19,7 @@ openpawz_show_back_to_site:
   description: "Show a 'Back to OpenPawz' link in the header"
 
 openpawz_site_url:
-  default: "https://openpawz.com"
+  default: "https://openpawz.ai"
   type: string
   description: "URL for the 'Back to OpenPawz' link"
 

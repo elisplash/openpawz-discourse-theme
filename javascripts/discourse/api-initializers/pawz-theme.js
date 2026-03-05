@@ -495,7 +495,7 @@ export default apiInitializer("1.0", (api) => {
     api.onPageChange(() => {
       if (document.querySelector(".pawz-footer")) return;
 
-      const siteUrl = settings.openpawz_site_url || "https://openpawz.com";
+      const siteUrl = settings.openpawz_site_url || "https://openpawz.ai";
       const githubUrl =
         settings.openpawz_github_url || "https://github.com/OpenPawz/openpawz";
       const discordUrl =

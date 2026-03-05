@@ -1,6 +1,6 @@
 # OpenPawz Kinetic — Discourse Theme
 
-The official community theme for [OpenPawz](https://openpawz.com) Discourse forums. Brings the full Pawz design system — industrial aesthetics, warm cream-on-void typography, kinetic red accents, film grain textures, and animated micro-interactions — into your Discourse instance.
+The official community theme for [OpenPawz](https://openpawz.ai) Discourse forums. Brings the full Pawz design system — industrial aesthetics, warm cream-on-void typography, kinetic red accents, film grain textures, and animated micro-interactions — into your Discourse instance.
 
 ## Design System
 
@@ -79,14 +79,14 @@ Styled: login/signup modals, user profiles, notification panels, badges page, gr
 | `openpawz_kinetic_animations` | `true` | Spring hover & breathing animations |
 | `openpawz_logo_url` | _(empty)_ | Custom logo image URL |
 | `openpawz_show_back_to_site` | `true` | "Back to OpenPawz" header bar |
-| `openpawz_site_url` | `https://openpawz.com` | Back-to-site link destination |
+| `openpawz_site_url` | `https://openpawz.ai` | Back-to-site link destination |
 | `openpawz_show_hero_banner` | `true` | Branded hero banner on homepage |
 | `openpawz_hero_title` | `"Welcome to the Pawz Den"` | Hero banner heading text |
 | `openpawz_hero_subtitle` | _(see settings.yml)_ | Hero banner description |
 | `openpawz_show_custom_footer` | `true` | Custom branded footer |
 | `openpawz_github_url` | `https://github.com/OpenPawz` | GitHub link (footer/hero) |
 | `openpawz_discord_url` | `https://discord.gg/openpawz` | Discord invite link (footer) |
-| `openpawz_docs_url` | `https://docs.openpawz.com` | Documentation link (footer) |
+| `openpawz_docs_url` | `https://docs.openpawz.ai` | Documentation link (footer) |
 | `openpawz_twitter_url` | `https://x.com/openpawz` | Twitter/X link (footer) |
 | `openpawz_custom_loading` | `true` | Custom loading animation |
 | `openpawz_category_banners` | `true` | Category page colour banners |
