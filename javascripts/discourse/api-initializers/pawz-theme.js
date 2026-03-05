@@ -50,78 +50,11 @@ export default apiInitializer("1.0", (api) => {
           const title = settings.openpawz_hero_title;
           const subtitle = settings.openpawz_hero_subtitle;
 
-          // Tesseract wireframe SVG — golden geometric lines, richer geometry
-          const wireframeSvg = `<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="pawz-wire-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#D4A853;stop-opacity:0.8"/>
-                <stop offset="50%" style="stop-color:#FF8C28;stop-opacity:1"/>
-                <stop offset="100%" style="stop-color:#D4A853;stop-opacity:0.6"/>
-              </linearGradient>
-              <linearGradient id="pawz-wire-dim" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#D4A853;stop-opacity:0.3"/>
-                <stop offset="100%" style="stop-color:#FF8C28;stop-opacity:0.5"/>
-              </linearGradient>
-            </defs>
-            <g fill="none" stroke="url(#pawz-wire-grad)" stroke-width="1.5">
-              <!-- Outer cube -->
-              <polygon points="150,180 650,180 650,620 150,620"/>
-              <polygon points="240,110 740,110 740,550 240,550"/>
-              <line x1="150" y1="180" x2="240" y2="110"/>
-              <line x1="650" y1="180" x2="740" y2="110"/>
-              <line x1="650" y1="620" x2="740" y2="550"/>
-              <line x1="150" y1="620" x2="240" y2="550"/>
-              <!-- Inner cube -->
-              <polygon points="290,290 510,290 510,510 290,510"/>
-              <polygon points="340,240 560,240 560,460 340,460"/>
-              <line x1="290" y1="290" x2="340" y2="240"/>
-              <line x1="510" y1="290" x2="560" y2="240"/>
-              <line x1="510" y1="510" x2="560" y2="460"/>
-              <line x1="290" y1="510" x2="340" y2="460"/>
-            </g>
-            <!-- 4D connections (dashed) -->
-            <g fill="none" stroke="url(#pawz-wire-grad)" stroke-width="1" stroke-dasharray="5,7">
-              <line x1="150" y1="180" x2="290" y2="290"/>
-              <line x1="650" y1="180" x2="510" y2="290"/>
-              <line x1="650" y1="620" x2="510" y2="510"/>
-              <line x1="150" y1="620" x2="290" y2="510"/>
-              <line x1="240" y1="110" x2="340" y2="240"/>
-              <line x1="740" y1="110" x2="560" y2="240"/>
-              <line x1="740" y1="550" x2="560" y2="460"/>
-              <line x1="240" y1="550" x2="340" y2="460"/>
-            </g>
-            <!-- Extra wireframe triangles -->
-            <g fill="none" stroke="url(#pawz-wire-dim)" stroke-width="0.8">
-              <line x1="150" y1="180" x2="650" y2="620"/>
-              <line x1="650" y1="180" x2="150" y2="620"/>
-              <line x1="240" y1="110" x2="740" y2="550"/>
-              <line x1="740" y1="110" x2="240" y2="550"/>
-              <line x1="400" y1="110" x2="400" y2="620"/>
-              <line x1="150" y1="400" x2="740" y2="400"/>
-            </g>
-            <!-- Node dots with glow -->
-            <g>
-              <circle cx="150" cy="180" r="3.5" fill="#D4A853" fill-opacity="0.7"/>
-              <circle cx="650" cy="180" r="3.5" fill="#D4A853" fill-opacity="0.7"/>
-              <circle cx="650" cy="620" r="3.5" fill="#FF8C28" fill-opacity="0.7"/>
-              <circle cx="150" cy="620" r="3.5" fill="#FF8C28" fill-opacity="0.7"/>
-              <circle cx="240" cy="110" r="3" fill="#D4A853" fill-opacity="0.5"/>
-              <circle cx="740" cy="110" r="3" fill="#D4A853" fill-opacity="0.5"/>
-              <circle cx="740" cy="550" r="3" fill="#FF8C28" fill-opacity="0.5"/>
-              <circle cx="240" cy="550" r="3" fill="#FF8C28" fill-opacity="0.5"/>
-              <circle cx="400" cy="400" r="5" fill="#D4A853" fill-opacity="0.9"/>
-              <circle cx="290" cy="290" r="2.5" fill="#D4A853" fill-opacity="0.5"/>
-              <circle cx="510" cy="290" r="2.5" fill="#D4A853" fill-opacity="0.5"/>
-              <circle cx="510" cy="510" r="2.5" fill="#FF8C28" fill-opacity="0.5"/>
-              <circle cx="290" cy="510" r="2.5" fill="#FF8C28" fill-opacity="0.5"/>
-            </g>
-          </svg>`;
-
           const logoUrl = settings.openpawz_logo_url || "";
           const logoHtml = logoUrl ? `<div class="pawz-hero-logo"><img src="${logoUrl}" alt="" onerror="this.parentElement.remove()"/></div>` : "";
 
           hero.innerHTML = `
-            <div class="pawz-hero-wireframe">${wireframeSvg}</div>
+            <canvas class="pawz-hero-tesseract" width="600" height="600"></canvas>
             <div class="pawz-hero-glow"></div>
             <div class="pawz-hero-content">
               ${logoHtml}
@@ -143,6 +76,106 @@ export default apiInitializer("1.0", (api) => {
           hero.querySelector(".pawz-hero-subtitle").textContent = subtitle;
 
           outlet.prepend(hero);
+
+          // ── Real 4D Tesseract — matching website's TesseractViewport ──
+          const canvas = hero.querySelector(".pawz-hero-tesseract");
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            const dpr = Math.min(window.devicePixelRatio, 2);
+            const cw = canvas.clientWidth;
+            const ch = canvas.clientHeight;
+            canvas.width = cw * dpr;
+            canvas.height = ch * dpr;
+
+            // 16 vertices of a 4D hypercube
+            const V = [];
+            for (let i = 0; i < 16; i++)
+              V.push([(i&1)?1:-1, (i&2)?1:-1, (i&4)?1:-1, (i&8)?1:-1]);
+
+            // 32 edges — connect vertices that differ by exactly 1 bit
+            const E = [];
+            for (let i = 0; i < 16; i++)
+              for (let j = i+1; j < 16; j++) {
+                const d = i ^ j;
+                if (d && !(d & (d-1))) E.push([i, j]);
+              }
+
+            const t0 = performance.now();
+            let animId;
+
+            function drawFrame() {
+              animId = requestAnimationFrame(drawFrame);
+              const t = (performance.now() - t0) / 1000;
+              const w = canvas.width, h = canvas.height;
+              const cx = w/2, cy = h/2;
+
+              ctx.clearRect(0, 0, w, h);
+
+              // 4D rotation angles (slow, same as website)
+              const xw = t * 0.25;
+              const yz = t * 0.15;
+              const zw = t * 0.3;
+
+              const scale = Math.min(w, h) * 0.22;
+              const dist4 = 3.5; // 4D projection distance
+
+              // Project all 16 vertices
+              const pts = V.map(v => {
+                let [x, y, z, ww] = v;
+                // XW rotation
+                let c = Math.cos(xw), s = Math.sin(xw);
+                let nx = x*c - ww*s, nw = x*s + ww*c;
+                x = nx; ww = nw;
+                // YZ rotation
+                c = Math.cos(yz); s = Math.sin(yz);
+                let ny = y*c - z*s, nz = y*s + z*c;
+                y = ny; z = nz;
+                // ZW rotation
+                c = Math.cos(zw); s = Math.sin(zw);
+                let nz2 = z*c - ww*s, nw2 = z*s + ww*c;
+                z = nz2; ww = nw2;
+                // 4D → 3D perspective
+                const s4 = dist4 / (dist4 - ww);
+                const x3 = x * s4, y3 = y * s4, z3 = z * s4;
+                // 3D → 2D perspective
+                const dist3 = 5;
+                const s3 = dist3 / (dist3 - z3);
+                return [cx + x3 * s3 * scale, cy + y3 * s3 * scale, s4];
+              });
+
+              // Draw edges
+              E.forEach(([i, j]) => {
+                const [x1, y1, d1] = pts[i];
+                const [x2, y2, d2] = pts[j];
+                const alpha = ((d1 + d2) / 2) * 0.35;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = `rgba(212, 168, 83, ${Math.max(0.08, Math.min(0.7, alpha))})`;
+                ctx.lineWidth = (d1 + d2) / 2 * 0.8 * dpr;
+                ctx.stroke();
+              });
+
+              // Draw vertex dots
+              pts.forEach(([x, y, d]) => {
+                const r = d * 1.8 * dpr;
+                const alpha = Math.max(0.15, Math.min(0.8, d * 0.4));
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(212, 168, 83, ${alpha})`;
+                ctx.fill();
+              });
+            }
+
+            drawFrame();
+
+            // Cleanup on navigation
+            const origRemove = hero.remove.bind(hero);
+            hero.remove = function() {
+              cancelAnimationFrame(animId);
+              origRemove();
+            };
+          }
 
           // Populate stats from Discourse site data
           try {
