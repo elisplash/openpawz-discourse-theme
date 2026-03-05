@@ -1255,14 +1255,19 @@ table {
     }
   }
 
-  // ── Headline — massive bold gradient text ──
+  // ── Headlines container ──
+  .pawz-hero-headlines {
+    margin-bottom: 1.25rem;
+  }
+
+  // ── Headline — bold gradient text, one per line ──
   .pawz-hero-title {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    font-size: clamp(2rem, 5.5vw, 4rem);
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.1;
     letter-spacing: -0.035em;
-    margin-bottom: 1.25rem;
+    margin: 0;
     background: linear-gradient(
       180deg,
       #ede6db 0%,

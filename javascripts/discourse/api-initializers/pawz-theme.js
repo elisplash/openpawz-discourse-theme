@@ -117,20 +117,29 @@ export default apiInitializer("1.0", (api) => {
             </g>
           </svg>`;
 
+          const logoUrl = settings.openpawz_logo_url || "";
+          const logoHtml = logoUrl ? `<div class="pawz-hero-logo"><img src="${logoUrl}" alt="" onerror="this.parentElement.remove()"/></div>` : "";
+
           hero.innerHTML = `
             <div class="pawz-hero-wireframe">${wireframeSvg}</div>
             <div class="pawz-hero-glow"></div>
             <div class="pawz-hero-content">
-              <div class="pawz-hero-logo">
-                <img src="${settings.openpawz_logo_url || ""}" alt="" onerror="this.parentElement.style.display='none'"/>
-              </div>
-              <h1 class="pawz-hero-title"></h1>
+              ${logoHtml}
+              <div class="pawz-hero-headlines"></div>
               <p class="pawz-hero-subtitle"></p>
               <div class="pawz-hero-stats" id="pawz-hero-stats"></div>
             </div>
           `;
 
-          hero.querySelector(".pawz-hero-title").textContent = title;
+          // Split title on "." to create separate lines
+          const headlinesEl = hero.querySelector(".pawz-hero-headlines");
+          const lines = title.split(".").filter(l => l.trim());
+          lines.forEach((line) => {
+            const h1 = document.createElement("h1");
+            h1.className = "pawz-hero-title";
+            h1.textContent = line.trim() + ".";
+            headlinesEl.appendChild(h1);
+          });
           hero.querySelector(".pawz-hero-subtitle").textContent = subtitle;
 
           outlet.prepend(hero);
