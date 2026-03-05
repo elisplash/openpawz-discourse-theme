@@ -8,14 +8,20 @@
   max-width: 1320px;
 }
 
-// Desktop sidebar — thinner, sharper
-.sidebar-wrapper .sidebar-container {
-  border-right: 1px solid var(--pawz-border-subtle);
+// Desktop sidebar — proper width and cleaner
+.sidebar-wrapper {
+  width: 240px;
+  min-width: 240px;
+
+  .sidebar-container {
+    border-right: 1px solid var(--pawz-border-subtle);
+    width: 240px;
+  }
 }
 
-// Topic list — slightly larger touch targets on desktop
+// Topic list — comfortable spacing
 .topic-list .topic-list-item td {
-  padding: 14px 12px;
+  padding: 12px;
 }
 
 // Topic body — comfortable reading width
@@ -41,9 +47,13 @@
   padding: 10px 16px;
 }
 
-// Desktop header — fixed height
+// Desktop header — fixed height with centered content
 .d-header-wrap .d-header {
-  height: 56px;
+  height: 54px;
+
+  .wrap {
+    max-width: 1320px;
+  }
 }
 
 // Desktop timeline (right side on topic pages)

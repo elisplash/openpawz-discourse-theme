@@ -2067,6 +2067,384 @@ table {
 }
 
 // ══════════════════════════════════════════════════════════
+//  WELCOME BANNER — Styled to match Pawz system
+// ══════════════════════════════════════════════════════════
+
+// Discourse welcome header ("Welcome, username!")
+.custom-homepage-columns,
+.alert.alert-info.clickable.welcome-message {
+  background: var(--pawz-bg-secondary);
+  border: 1px solid var(--pawz-border);
+  border-radius: 0;
+}
+
+// Welcome header styling
+.homepage-welcome {
+  h1, .welcome-header {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--pawz-text-primary);
+    margin-bottom: 6px;
+  }
+
+  p {
+    font-size: 13px;
+    color: var(--pawz-text-secondary);
+    line-height: 1.5;
+  }
+}
+
+// The big "Welcome" text Discourse shows
+.d-header-wrap + .wrap .alert.alert-info:first-child,
+.below-site-header-outlet {
+  margin: 0;
+}
+
+// ══════════════════════════════════════════════════════════
+//  SEARCH — Compact, not oversized
+// ══════════════════════════════════════════════════════════
+
+// Homepage search bar (the big one)
+.search-banner {
+  padding: 0;
+  margin: 0;
+
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--pawz-text-primary);
+  }
+
+  .search-input {
+    max-width: 600px;
+
+    input[type="text"] {
+      height: 40px;
+      font-size: 13px;
+      padding: 8px 14px;
+      background: var(--pawz-bg);
+      border: 1px solid var(--pawz-border);
+    }
+  }
+}
+
+// Header search menu — compact dropdown
+.search-menu {
+  width: 450px;
+
+  .search-input {
+    input {
+      height: 38px;
+      font-size: 13px;
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  ADMIN NOTICES — Clean subtlety
+// ══════════════════════════════════════════════════════════
+
+.alert.alert-info {
+  font-size: 12px;
+  padding: 8px 14px;
+  background: var(--pawz-bg-tertiary);
+  border: 1px solid var(--pawz-border);
+  border-left: 2px solid var(--pawz-steel);
+  color: var(--pawz-text-secondary);
+  margin-bottom: 10px;
+  border-radius: 0;
+
+  a {
+    color: var(--pawz-accent);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  TOPIC LIST — Tighter, cleaner layout like n8n
+// ══════════════════════════════════════════════════════════
+
+// Topic title — proper size and weight
+.topic-list .main-link {
+  .link-top-line {
+    margin-bottom: 3px;
+
+    a.title {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+  }
+
+  // Category badge inline with title
+  .link-bottom-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+
+    .badge-wrapper {
+      font-size: 11px;
+    }
+
+    .discourse-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+// Topic excerpts — cleaner truncation
+.topic-list .topic-excerpt {
+  color: var(--pawz-text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin-top: 5px;
+  max-height: 2.25em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+// Replies/Views/Activity columns — compact
+.topic-list .num {
+  font-size: 13px;
+
+  &.views {
+    font-weight: 400;
+  }
+
+  &.posts {
+    font-weight: 500;
+  }
+}
+
+// Activity relative time
+.topic-list .relative-date {
+  font-size: 12px;
+  color: var(--pawz-text-muted);
+}
+
+// Posters — smaller avatars
+.topic-list .posters a img.avatar {
+  width: 24px;
+  height: 24px;
+}
+
+// Topic list header — refined
+.topic-list thead th {
+  padding: 8px 12px;
+  font-size: 10px;
+}
+
+// ══════════════════════════════════════════════════════════
+//  SIDEBAR — Polished like n8n sidebar
+// ══════════════════════════════════════════════════════════
+
+// Sidebar categories section
+.sidebar-wrapper {
+  .sidebar-section-link-wrapper {
+    margin: 1px 0;
+  }
+
+  .sidebar-section-link {
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--pawz-text-secondary);
+
+    &:hover {
+      color: var(--pawz-text-primary);
+    }
+
+    &.active {
+      color: var(--pawz-accent);
+      font-weight: 500;
+    }
+
+    // Category color dot
+    .sidebar-section-link-prefix {
+      .prefix-badge {
+        width: 8px;
+        height: 8px;
+        border-radius: 0;
+      }
+    }
+  }
+
+  // Section headers (CATEGORIES, TAGS)
+  .sidebar-section-header {
+    padding: 4px 10px;
+    margin-top: 8px;
+  }
+
+  .sidebar-section-header-text {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+  }
+
+  // Tags in sidebar — use tag chip style
+  .sidebar-tags {
+    .sidebar-section-link {
+      font-family: var(--pawz-font-pixel);
+      font-size: 11px;
+    }
+  }
+
+  // More button
+  .sidebar-more-section-links-details-summary {
+    font-size: 12px;
+    color: var(--pawz-text-muted);
+    padding: 6px 10px;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  HEADER NAV — Cleaner like n8n top bar
+// ══════════════════════════════════════════════════════════
+
+// Header height and alignment
+.d-header-wrap .d-header {
+  .contents {
+    display: flex;
+    align-items: center;
+  }
+
+  .panel {
+    display: flex;
+    align-items: center;
+  }
+}
+
+// Header title area
+.d-header .title {
+  a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--pawz-text-primary);
+  }
+}
+
+// Custom header links (if using header links theme component)
+.custom-header-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 16px;
+
+  a, li a {
+    font-family: var(--pawz-font-pixel);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--pawz-text-secondary);
+    padding: 6px 12px;
+    text-decoration: none;
+    transition: color var(--pawz-transition-fast);
+    border-radius: var(--pawz-radius-sm);
+
+    &:hover {
+      color: var(--pawz-text-primary);
+      background: var(--pawz-bg-hover);
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  NAV PILLS — Better spacing and alignment
+// ══════════════════════════════════════════════════════════
+
+.navigation-container {
+  margin-bottom: 0;
+  padding: 0;
+
+  .nav-pills {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--pawz-border-subtle);
+    padding-bottom: 0;
+
+    > li > a {
+      padding: 10px 14px;
+      margin-bottom: -1px;
+    }
+  }
+}
+
+// Category/tag filter dropdowns — compact
+.list-controls {
+  .category-breadcrumb {
+    margin-right: 12px;
+
+    .select-kit .select-kit-header {
+      height: 34px;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  MAIN CONTENT AREA — Proper spacing
+// ══════════════════════════════════════════════════════════
+
+#main-outlet {
+  padding-top: 20px;
+}
+
+// Remove excess margin from list controls
+.list-controls {
+  margin-bottom: 0;
+}
+
+// New topic button — refined
+#create-topic {
+  height: 34px;
+  padding: 6px 16px;
+  font-size: 11px;
+
+  .d-icon {
+    font-size: 11px;
+    margin-right: 4px;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+//  CATEGORY PAGE LIST — Better boxes
+// ══════════════════════════════════════════════════════════
+
+.category-list {
+  .category {
+    padding: 12px 0;
+
+    .category-text-title {
+      .category-name {
+        font-size: 15px;
+        font-weight: 600;
+      }
+    }
+
+    .category-description {
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin-top: 4px;
+      max-height: 2.25em;
+      overflow: hidden;
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════
 //  REDUCED MOTION — Respect user preference
 // ══════════════════════════════════════════════════════════
 
