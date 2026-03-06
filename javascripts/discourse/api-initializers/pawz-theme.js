@@ -25,25 +25,42 @@ export default apiInitializer("1.0", (api) => {
 
   // ── Dark / Light mode toggle ────────────────────────
   {
-    const stored = localStorage.getItem("pawz-color-mode");
-    if (stored === "light") {
+    let isLight = localStorage.getItem("pawz-color-mode") === "light";
+    if (isLight) {
       body.classList.add("pawz-light-mode");
     }
 
-    api.decorateWidget("header-icons:before", (helper) => {
-      return helper.attach("flat-button", {
-        action: "togglePawzMode",
-        icon: body.classList.contains("pawz-light-mode") ? "moon" : "sun",
-        className: "pawz-mode-toggle",
-        title: "Toggle light/dark mode",
-      });
-    });
+    function updateToggleIcon(btn) {
+      const svgUse = btn.querySelector("use");
+      if (svgUse) {
+        svgUse.setAttribute("href", isLight ? "#moon" : "#sun");
+      }
+      btn.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
+    }
 
-    api.attachWidgetAction("header", "togglePawzMode", function () {
-      body.classList.toggle("pawz-light-mode");
-      const isLight = body.classList.contains("pawz-light-mode");
-      localStorage.setItem("pawz-color-mode", isLight ? "light" : "dark");
-      this.scheduleRerender();
+    api.onPageChange(() => {
+      if (document.querySelector(".pawz-mode-toggle")) return;
+
+      const iconsContainer = document.querySelector(".header-buttons");
+      if (!iconsContainer) return;
+
+      const li = document.createElement("li");
+      li.className = "header-dropdown-toggle pawz-mode-toggle";
+
+      const btn = document.createElement("button");
+      btn.className = "btn btn-flat no-text icon btn-icon";
+      btn.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
+      btn.innerHTML = `<svg class="fa d-icon svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#${isLight ? "moon" : "sun"}"></use></svg>`;
+
+      btn.addEventListener("click", () => {
+        isLight = !isLight;
+        body.classList.toggle("pawz-light-mode", isLight);
+        localStorage.setItem("pawz-color-mode", isLight ? "light" : "dark");
+        updateToggleIcon(btn);
+      });
+
+      li.appendChild(btn);
+      iconsContainer.prepend(li);
     });
   }
 
