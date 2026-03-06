@@ -5,23 +5,23 @@
 // ══════════════════════════════════════════════════════════
 
 // ── Google Fonts ──────────────────────────────────────────
-@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap");
 
 // ── Pawz Design Tokens mapped to Discourse vars ──────────
 :root {
-  // Backgrounds
-  --pawz-bg: #080808;
-  --pawz-bg-secondary: #0e0e0e;
-  --pawz-bg-tertiary: #151515;
-  --pawz-bg-hover: #1a1a1a;
-  --pawz-bg-active: #222222;
+  // Backgrounds — lifted charcoal (not pure black)
+  --pawz-bg: #121216;
+  --pawz-bg-secondary: #1a1a20;
+  --pawz-bg-tertiary: #222228;
+  --pawz-bg-hover: #2a2a32;
+  --pawz-bg-active: #333340;
 
-  // Accent — kinetic red
+  // Accent — kinetic red (boosted glow)
   --pawz-accent: #ff4d4d;
   --pawz-accent-hover: #ff6b6b;
-  --pawz-accent-subtle: rgba(255, 77, 77, 0.08);
-  --pawz-accent-muted: rgba(255, 77, 77, 0.18);
-  --pawz-accent-glow: rgba(255, 77, 77, 0.3);
+  --pawz-accent-subtle: rgba(255, 77, 77, 0.10);
+  --pawz-accent-muted: rgba(255, 77, 77, 0.22);
+  --pawz-accent-glow: rgba(255, 77, 77, 0.4);
 
   // Kinetic palette
   --pawz-sage: #8fb0a0;
@@ -34,20 +34,20 @@
   --pawz-text-muted: #8a847d;
   --pawz-text-tertiary: #736e67;
 
-  // Borders — sharp 1px grid
-  --pawz-border: #222222;
-  --pawz-border-subtle: #1a1a1a;
-  --pawz-border-hover: #333333;
+  // Borders — visible against lifted bg
+  --pawz-border: #2e2e38;
+  --pawz-border-subtle: #252530;
+  --pawz-border-hover: #3c3c48;
 
-  // Radius — industrial sharp
-  --pawz-radius-sm: 2px;
-  --pawz-radius-md: 3px;
+  // Radius — slightly softer
+  --pawz-radius-sm: 4px;
+  --pawz-radius-md: 6px;
 
-  // Shadows
-  --pawz-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --pawz-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --pawz-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
-  --pawz-shadow-accent: 0 0 12px rgba(255, 77, 77, 0.15);
+  // Shadows — boosted for depth on charcoal
+  --pawz-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --pawz-shadow-md: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --pawz-shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --pawz-shadow-accent: 0 0 16px rgba(255, 77, 77, 0.25);
 
   // Transitions — exact Pawz timing
   --pawz-transition-fast: 120ms ease-out;
@@ -55,13 +55,14 @@
   --pawz-transition-smooth: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 
   // Typography
+  --pawz-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --pawz-font-pixel: "Share Tech Mono", monospace;
   --pawz-font-mono: "Droid Sans Mono", "Cascadia Code", "Fira Code", Menlo,
     Monaco, Consolas, "Courier New", monospace;
 
-  // Atmosphere
+  // Atmosphere — stronger glow
   --pawz-atmo-color: 255, 77, 77;
-  --pawz-grain-opacity: 0.035;
+  --pawz-grain-opacity: 0.025;
 }
 
 // ══════════════════════════════════════════════════════════
@@ -74,13 +75,13 @@ html {
 
 html body {
   background: var(--pawz-bg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
-    Helvetica, Arial, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Noto Sans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-// Kinetic atmosphere — accent radial glow
+// Kinetic atmosphere — accent radial glow (boosted)
 body::before {
   content: "";
   position: fixed;
@@ -89,17 +90,17 @@ body::before {
   z-index: 0;
   background: radial-gradient(
       ellipse 80% 50% at 50% 0%,
-      rgba(var(--pawz-atmo-color), 0.035) 0%,
+      rgba(var(--pawz-atmo-color), 0.06) 0%,
       transparent 70%
     ),
     radial-gradient(
       ellipse 60% 40% at 80% 30%,
-      rgba(var(--pawz-atmo-color), 0.02) 0%,
+      rgba(var(--pawz-atmo-color), 0.035) 0%,
       transparent 60%
     ),
     radial-gradient(
       ellipse 50% 60% at 20% 70%,
-      rgba(var(--pawz-atmo-color), 0.015) 0%,
+      rgba(var(--pawz-atmo-color), 0.025) 0%,
       transparent 60%
     );
 }
@@ -160,9 +161,10 @@ body::before {
     > a {
       border-radius: 0;
       color: var(--pawz-text-secondary);
-      font-size: 12px;
-      font-family: var(--pawz-font-pixel);
-      letter-spacing: 0.04em;
+      font-size: 12.5px;
+      font-family: var(--pawz-font-heading);
+      font-weight: 600;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
       padding: 8px 14px;
       border-bottom: 2px solid transparent;
@@ -398,25 +400,31 @@ nav.post-controls {
 // ══════════════════════════════════════════════════════════
 
 .btn {
-  border-radius: var(--pawz-radius-sm);
-  font-family: var(--pawz-font-pixel);
-  font-size: 12px;
-  letter-spacing: 0.02em;
+  border-radius: var(--pawz-radius-md);
+  font-family: var(--pawz-font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   transition: all var(--pawz-transition-fast);
   border: 1px solid transparent;
 }
 
-// Primary button — accent
+// Primary button — filled accent
 .btn-primary {
-  background: transparent;
-  color: var(--pawz-accent);
-  border-color: var(--pawz-accent-muted);
+  background: var(--pawz-accent);
+  color: #fff;
+  border-color: var(--pawz-accent);
+
+  .d-icon {
+    color: #fff;
+  }
 
   &:hover,
   &:focus {
-    background: rgba(var(--pawz-atmo-color), 0.12);
-    border-color: var(--pawz-accent);
-    color: var(--pawz-accent);
+    background: var(--pawz-accent-hover);
+    border-color: var(--pawz-accent-hover);
+    color: #fff;
+    box-shadow: var(--pawz-shadow-accent);
   }
 }
 
@@ -448,19 +456,26 @@ nav.post-controls {
 
 // Create topic button — standout CTA
 #create-topic {
-  background: transparent;
-  color: var(--pawz-accent);
+  background: var(--pawz-accent);
+  color: #fff;
   border: 1px solid var(--pawz-accent);
-  font-family: var(--pawz-font-pixel);
+  font-family: var(--pawz-font-heading);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 11px;
-  border-radius: var(--pawz-radius-sm);
+  letter-spacing: 0.04em;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: var(--pawz-radius-md);
   transition: all var(--pawz-transition-fast);
 
+  .d-icon {
+    color: #fff;
+  }
+
   &:hover {
-    background: rgba(var(--pawz-atmo-color), 0.12);
+    background: var(--pawz-accent-hover);
+    border-color: var(--pawz-accent-hover);
     box-shadow: var(--pawz-shadow-accent);
+    color: #fff;
   }
 }
 
@@ -622,10 +637,11 @@ nav.post-controls {
   }
 
   .sidebar-section-header-text {
-    font-family: var(--pawz-font-pixel);
-    font-size: 10px;
+    font-family: var(--pawz-font-heading);
+    font-size: 10.5px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     color: var(--pawz-text-muted);
   }
 
@@ -1146,10 +1162,11 @@ table {
 // ══════════════════════════════════════════════════════════
 
 .pawz-topnav {
-  background: var(--pawz-bg);
+  background: var(--pawz-bg-secondary);
   border-bottom: 1px solid var(--pawz-border);
-  font-family: var(--pawz-font-pixel);
-  font-size: 12px;
+  font-family: var(--pawz-font-heading);
+  font-size: 13px;
+  font-weight: 500;
   position: relative;
   z-index: 1100;
 }
@@ -1198,8 +1215,9 @@ table {
   background: none;
   border: none;
   color: var(--pawz-text-secondary);
-  font-family: var(--pawz-font-pixel);
-  font-size: 12px;
+  font-family: var(--pawz-font-heading);
+  font-size: 13px;
+  font-weight: 500;
   padding: 10px 12px;
   cursor: pointer;
   display: flex;
@@ -1245,9 +1263,10 @@ table {
     padding: 8px 16px;
     color: var(--pawz-text-secondary);
     text-decoration: none;
-    font-size: 12px;
-    font-family: var(--pawz-font-pixel);
-    letter-spacing: 0.04em;
+    font-size: 12.5px;
+    font-family: var(--pawz-font-heading);
+    font-weight: 500;
+    letter-spacing: 0.02em;
     transition: color var(--pawz-transition-fast), background var(--pawz-transition-fast);
 
     &:hover {
@@ -1378,8 +1397,8 @@ table {
 
   // ── Headline — bold gradient text, one per line ──
   .pawz-hero-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-family: var(--pawz-font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.75rem);
     font-weight: 800;
     line-height: 1.12;
     letter-spacing: -0.035em;
@@ -1618,7 +1637,7 @@ table {
   }
 
   .pawz-category-banner-name {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--pawz-font-heading);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--pawz-text-primary);
@@ -2121,10 +2140,11 @@ table {
 }
 
 .pawz-highlights-title {
-  font-family: var(--pawz-font-pixel);
-  font-size: 13px;
+  font-family: var(--pawz-font-heading);
+  font-size: 14px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   color: var(--pawz-text-primary);
   margin: 0 0 4px;
 
@@ -2247,8 +2267,9 @@ table {
 }
 
 .pawz-highlight-card-title {
-  font-size: 14px;
-  font-weight: 600;
+  font-family: var(--pawz-font-heading);
+  font-size: 14.5px;
+  font-weight: 700;
   color: var(--pawz-text-primary);
   margin: 0 0 8px;
   line-height: 1.35;

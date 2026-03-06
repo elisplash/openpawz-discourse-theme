@@ -6,10 +6,10 @@
   "color_schemes": {
     "OpenPawz Dark": {
       "primary": "EDE6DB",
-      "secondary": "080808",
+      "secondary": "121216",
       "tertiary": "FF4D4D",
       "quaternary": "FF6B6B",
-      "header_background": "0e0e0e",
+      "header_background": "1a1a20",
       "header_primary": "EDE6DB",
       "highlight": "FF4D4D",
       "danger": "FF4D4D",
