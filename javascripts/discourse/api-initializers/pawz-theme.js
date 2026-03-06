@@ -23,6 +23,30 @@ export default apiInitializer("1.0", (api) => {
     body.classList.add("pawz-category-banners");
   }
 
+  // ── Dark / Light mode toggle ────────────────────────
+  {
+    const stored = localStorage.getItem("pawz-color-mode");
+    if (stored === "light") {
+      body.classList.add("pawz-light-mode");
+    }
+
+    api.decorateWidget("header-icons:before", (helper) => {
+      return helper.attach("flat-button", {
+        action: "togglePawzMode",
+        icon: body.classList.contains("pawz-light-mode") ? "moon" : "sun",
+        className: "pawz-mode-toggle",
+        title: "Toggle light/dark mode",
+      });
+    });
+
+    api.attachWidgetAction("header", "togglePawzMode", function () {
+      body.classList.toggle("pawz-light-mode");
+      const isLight = body.classList.contains("pawz-light-mode");
+      localStorage.setItem("pawz-color-mode", isLight ? "light" : "dark");
+      this.scheduleRerender();
+    });
+  }
+
   // ── Page transition animation ───────────────────────
   if (settings.openpawz_page_transitions) {
     api.onPageChange(() => {
@@ -595,6 +619,48 @@ export default apiInitializer("1.0", (api) => {
       if (mainWrap) {
         mainWrap.parentNode.insertBefore(footer, mainWrap.nextSibling);
       }
+    });
+  }
+
+  // ── Announcement banner (dismissible) ───────────────
+  if (settings.openpawz_show_announcement_banner && settings.openpawz_announcement_text) {
+    const storageKey = "pawz-banner-dismissed-" + settings.openpawz_announcement_text.slice(0, 30).replace(/\s+/g, "-");
+
+    api.onPageChange(() => {
+      if (sessionStorage.getItem(storageKey)) return;
+      if (document.querySelector(".pawz-announcement-banner")) return;
+
+      const header = document.querySelector(".d-header-wrap");
+      if (!header) return;
+
+      const banner = document.createElement("div");
+      banner.className = "pawz-announcement-banner";
+
+      const textEl = document.createElement("span");
+      textEl.className = "pawz-announcement-text";
+      textEl.textContent = settings.openpawz_announcement_text;
+      banner.appendChild(textEl);
+
+      if (settings.openpawz_announcement_link) {
+        const link = document.createElement("a");
+        link.className = "pawz-announcement-link";
+        link.href = settings.openpawz_announcement_link;
+        link.textContent = settings.openpawz_announcement_link_text || "Learn more";
+        link.rel = "noopener noreferrer";
+        banner.appendChild(link);
+      }
+
+      const closeBtn = document.createElement("button");
+      closeBtn.className = "pawz-announcement-close";
+      closeBtn.setAttribute("aria-label", "Dismiss announcement");
+      closeBtn.innerHTML = "\u2715";
+      closeBtn.addEventListener("click", () => {
+        banner.remove();
+        sessionStorage.setItem(storageKey, "1");
+      });
+      banner.appendChild(closeBtn);
+
+      header.parentNode.insertBefore(banner, header);
     });
   }
 });

@@ -99,3 +99,23 @@ openpawz_highlights_count:
   min: 2
   max: 8
   description: "Number of topics to show in Community Highlights"
+
+openpawz_show_announcement_banner:
+  default: false
+  type: bool
+  description: "Show a dismissible announcement banner at the top of every page"
+
+openpawz_announcement_text:
+  default: ""
+  type: string
+  description: "Text to display in the announcement banner"
+
+openpawz_announcement_link:
+  default: ""
+  type: string
+  description: "Optional URL the announcement banner links to"
+
+openpawz_announcement_link_text:
+  default: "Learn more"
+  type: string
+  description: "Text for the announcement banner link"
