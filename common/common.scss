@@ -770,6 +770,16 @@ nav.post-controls {
   display: none !important;
 }
 
+// Hide Discourse-native category emoji icons (we inject our own FA icons)
+.badge-wrapper .badge-category-parent-bg,
+.badge-wrapper .category-icon,
+.badge-wrapper img.emoji,
+.category-list .category-icon,
+.category-list img.emoji,
+.sidebar-section-link-wrapper img.emoji {
+  display: none !important;
+}
+
 // Inject FA icon before category name
 .badge-wrapper .badge-category::before {
   font-family: "Font Awesome 5 Free";
@@ -781,12 +791,12 @@ nav.post-controls {
   opacity: 0.85;
 }
 
-// ── Per-category icons ──
+// ── Per-category icons (monochrome) ──
 // General — chat bubble (default fallback)
 .badge-wrapper .badge-category[data-category-id] {
   &::before {
     content: "\f075"; // fa-comment
-    color: var(--pawz-sage);
+    color: var(--pawz-text-muted);
   }
 }
 
@@ -794,14 +804,14 @@ nav.post-controls {
 .badge-wrapper .badge-category[href*="announcements"]::before,
 .category-list .category[data-category-id] a[href*="announcements"] .category-name::before {
   content: "\f0a1"; // fa-bullhorn
-  color: var(--pawz-gold);
+  color: var(--pawz-text-muted);
 }
 
 // Guides & Resources — book-open
 .badge-wrapper .badge-category[href*="guides"]::before,
 .category-list .category[data-category-id] a[href*="guides"] .category-name::before {
   content: "\f518"; // fa-book-open
-  color: #5b9bd5;
+  color: var(--pawz-text-muted);
 }
 
 // Site Feedback — comment-dots
@@ -809,14 +819,14 @@ nav.post-controls {
 .badge-wrapper .badge-category[href*="feedback"]::before,
 .category-list .category[data-category-id] a[href*="feedback"] .category-name::before {
   content: "\f4ad"; // fa-comment-dots
-  color: var(--pawz-steel);
+  color: var(--pawz-text-muted);
 }
 
 // Staff — shield-alt
 .badge-wrapper .badge-category[href*="staff"]::before,
 .category-list .category[data-category-id] a[href*="staff"] .category-name::before {
   content: "\f3ed"; // fa-shield-alt
-  color: var(--pawz-accent);
+  color: var(--pawz-text-muted);
 }
 
 // Skills Marketplace — puzzle-piece
@@ -824,7 +834,7 @@ nav.post-controls {
 .badge-wrapper .badge-category[href*="marketplace"]::before,
 .category-list .category[data-category-id] a[href*="skills"] .category-name::before {
   content: "\f12e"; // fa-puzzle-piece
-  color: #c792ea;
+  color: var(--pawz-text-muted);
 }
 
 // Sidebar category icons — also replace bullets
@@ -3079,7 +3089,7 @@ body.pawz-light-mode {
   --quaternary: #b02828;
   --header_background: #efece7;
   --header_primary: #1a1815;
-  --highlight: rgba(204, 51, 51, 0.15);
+  --highlight: rgba(180, 160, 60, 0.15);
   --danger: #cc3333;
   --success: #4d8870;
   --love: #cc3333;
@@ -3150,8 +3160,25 @@ body.pawz-light-mode {
   }
 
   // Topic list
-  .topic-list .topic-list-item:hover {
-    background: var(--pawz-bg-hover);
+  .topic-list .topic-list-item {
+    background: var(--pawz-bg) !important;
+
+    &:hover {
+      background: var(--pawz-bg-hover) !important;
+    }
+  }
+
+  .topic-list .main-link .link-top-line a.title {
+    color: var(--pawz-text-primary) !important;
+
+    &.visited {
+      color: var(--pawz-text-secondary) !important;
+    }
+  }
+
+  .topic-list .topic-list-item.unseen,
+  .topic-list .topic-list-item.new-topic {
+    background: rgba(180, 160, 60, 0.06) !important;
   }
 
   // Modal / dropdown panels
